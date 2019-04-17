@@ -61,7 +61,7 @@ static PyObject* wbxml_to_xml(PyObject* self, PyObject* args) {
   }
 
   params.gen_type = WBXML_GEN_XML_INDENT;
-  params.lang = WBXML_LANG_UNKNOWN;
+  params.lang = WBXML_LANG_AIRSYNC;
   params.indent = 2;
   params.keep_ignorable_ws = FALSE;
 
