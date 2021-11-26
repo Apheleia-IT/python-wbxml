@@ -1,3 +1,4 @@
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <wbxml.h>
 
@@ -16,7 +17,7 @@ static PyObject* xml_to_wbxml(PyObject* self, PyObject* args) {
   WBXMLError ret;
   WB_UTINY *xml;
   WB_UTINY *wbxml;
-  WB_ULONG xml_len = 0;
+  Py_ssize_t xml_len = 0;
   WB_ULONG wbxml_len = 0;
   WBXMLGenWBXMLParams params;
 
@@ -29,7 +30,7 @@ static PyObject* xml_to_wbxml(PyObject* self, PyObject* args) {
   params.keep_ignorable_ws = FALSE;
   params.produce_anonymous = TRUE;
 
-  ret = wbxml_conv_xml2wbxml_withlen(xml, xml_len, &wbxml, &wbxml_len, &params);
+  ret = wbxml_conv_xml2wbxml_withlen(xml, (WB_ULONG)xml_len, &wbxml, &wbxml_len, &params);
   if(ret != WBXML_OK) {
     struct wbxml_state *st = GETSTATE(self);
     PyErr_SetString(st->WBXMLParseError, (const char*)wbxml_errors_string(ret));
@@ -53,7 +54,7 @@ static PyObject* wbxml_to_xml(PyObject* self, PyObject* args) {
   WB_UTINY *wbxml;
   WB_UTINY *xml;
   WB_ULONG xml_len = 0;
-  WB_ULONG wbxml_len = 0;
+  Py_ssize_t wbxml_len = 0;
   WBXMLGenXMLParams params;
 
   if(!PyArg_ParseTuple(args, "s#", &wbxml, &wbxml_len)) {
@@ -65,7 +66,7 @@ static PyObject* wbxml_to_xml(PyObject* self, PyObject* args) {
   params.indent = 2;
   params.keep_ignorable_ws = FALSE;
 
-  ret = wbxml_conv_wbxml2xml_withlen(wbxml, wbxml_len, &xml, &xml_len, &params);
+  ret = wbxml_conv_wbxml2xml_withlen(wbxml, (WB_ULONG)wbxml_len, &xml, &xml_len, &params);
   if(ret != WBXML_OK) {
     struct wbxml_state *st = GETSTATE(self);
     PyErr_SetString(st->WBXMLParseError, (const char*)wbxml_errors_string(ret));
