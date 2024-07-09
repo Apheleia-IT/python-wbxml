@@ -40,7 +40,7 @@ static PyObject* xml_to_wbxml(PyObject* self, PyObject* args) {
   PyObject *value = PyBytes_FromStringAndSize((const char*)wbxml, wbxml_len);
 
   if(wbxml != NULL) {
-    wbxml_free(wbxml);
+    free(wbxml);
   }
 
   return value;
@@ -76,7 +76,7 @@ static PyObject* wbxml_to_xml(PyObject* self, PyObject* args) {
   PyObject *value = PyUnicode_FromStringAndSize((const char*)xml, xml_len);
 
   if(xml != NULL) {
-    wbxml_free(xml);
+    free(xml);
   }
 
   return value;
